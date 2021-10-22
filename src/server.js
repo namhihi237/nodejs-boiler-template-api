@@ -3,7 +3,7 @@ import createError from 'http-errors';
 import cors from 'cors';
 const morgan = require('morgan');
 import { envVariable } from "./configs/env";
-import { logger } from './utils';
+import { logger, HttpError } from './utils';
 import models from './models';
 
 import { userRouter } from './routers';
@@ -31,10 +31,11 @@ global.logger = logger;
 
     // error handler
     app.use('/', function (err, req, res, next) {
-      res.status(err.status || 500).json({
+      const status = err.status ? err.status : 500;
+      res.status(status).json({
         message: err.message,
-        status: err.status || 500,
-        ok: false
+        status,
+        ok: err.ok
       });
     });
 

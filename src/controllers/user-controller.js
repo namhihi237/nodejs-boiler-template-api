@@ -1,4 +1,4 @@
-import { bcryptUtils } from "../utils";
+import { bcryptUtils, HttpError } from "../utils";
 
 class UserController {
   constructor(db) {
@@ -13,7 +13,7 @@ class UserController {
 
       // check required fields
       if (!email || !password || !fullName) {
-        throw new Error("Missing required fields");
+        throw new HttpError("Missing required fields", 400, false);
       }
       const hash = await bcryptUtils.hashPassword(password);
 
