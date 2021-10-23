@@ -1,7 +1,7 @@
 import cloudinary from 'cloudinary';
-import { envVariables } from '../configs/env';
+import { envVariable } from '../configs/env';
 
-const { CLOUD_NAME, API_KEY_CLOUD, API_SECRET_CLOUD } = envVariables;
+const { CLOUD_NAME, API_KEY_CLOUD, API_SECRET_CLOUD } = envVariable;
 
 class ImageUtils {
   constructor() {
@@ -14,6 +14,7 @@ class ImageUtils {
     });
   }
 
+  // register signature payload from cloudinary
   async signFileUploadRequest() {
     // grab a current UNIX timestamp
     let timestamp = Math.round(new Date().getTime() / 1000);
@@ -25,6 +26,7 @@ class ImageUtils {
     return payload;
   }
 
+  // remove old image from cloudinary
   removeImageToCloud(url) {
     global.logger.info("ImageUtils::removeImageToCloud" + url);
     const id = url.split('/').slice(-1)[0].split('.')[0];
