@@ -32,10 +32,11 @@ global.logger = logger;
     // error handler
     app.use('/', function (err, req, res, next) {
       const status = err.status ? err.status : 500;
+
       res.status(status).json({
         message: err.message,
         status,
-        ok: err.ok
+        ok: status >= 200 && status < 300 ? true : false,
       });
     });
 
