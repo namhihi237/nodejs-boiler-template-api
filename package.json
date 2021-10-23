@@ -6,7 +6,9 @@
 	"scripts": {
 		"dev": "nodemon -r esm ./src/server.js",
 		"start": "node -r esm ./src/server.js",
-		"sync-db": "node -r esm ./src/migrations/sync-db.js"
+		"sync-db": "node -r esm ./src/migrations/sync-db.js",
+		"deploy-dev": "pm2 deploy ecosystem.config.js development",
+		"deploy-prod": "pm2 deploy ecosystem.config.js production"
 	},
 	"dependencies": {
 		"app-root-path": "^3.0.0",
